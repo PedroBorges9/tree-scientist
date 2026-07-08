@@ -117,6 +117,8 @@
     document.getElementById("metric-stored").textContent = tonnes(totals.stored);
     document.getElementById("metric-impact").textContent = tonnes(totals.impact);
     document.getElementById("metric-value").textContent = currency(totals.value);
+    document.getElementById("assessment-period-output").textContent =
+      assessment.assumptions.assessmentYears.toLocaleString("en-GB") + " years";
     document.getElementById("stored-output").textContent = tonnes(totals.stored);
     document.getElementById("future-output").textContent = tonnes(totals.future);
     document.getElementById("impact-output").textContent = tonnes(totals.impact);

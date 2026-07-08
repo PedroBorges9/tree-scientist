@@ -126,6 +126,13 @@ h3 {
   border-bottom: 1px solid var(--line);
 }
 
+.result-meta {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
 .import-grid {
   display: grid;
   grid-template-columns: minmax(220px, 1.4fr) repeat(3, minmax(150px, 1fr));
