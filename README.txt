@@ -29,4 +29,4 @@ Notes
 - Expanded avoided runoff is estimated as rainfall interception x impervious cover fraction.
 - The simple avoided runoff fallback is living tree count x m3/tree/year.
 - Results are calculated in the browser; no internet connection or server is required.
-- Export CSV includes Results sections 5.A, 5.B, 5.C, 5.D and detailed tree calculations, including the growth source used for each tree.
+- Export CSV includes the results sections and detailed tree calculations, including the growth source used for each tree.

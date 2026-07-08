@@ -17,14 +17,14 @@
     addRow(["Results"]);
     addBlank();
 
-    addRow(["5.A Tree Loss Schedule"]);
+    addRow(["Tree Loss Schedule"]);
     addRow(["Species", "Number", "Mean DBH cm", "Mean height m", "Estimated biomass t"]);
     state.schedule.forEach(function (group) {
       addRow([group.species, group.count, group.meanDbh.toFixed(1), group.meanHeight.toFixed(1), group.biomass.toFixed(4)]);
     });
     addBlank();
 
-    addRow(["5.B Carbon Assessment"]);
+    addRow(["Carbon Assessment"]);
     addRow(["Metric", "Value", "Unit"]);
     addRow(["Carbon stored lost", state.totals.stored.toFixed(4), "tCO2e"]);
     addRow(["Future sequestration foregone", state.totals.future.toFixed(4), "tCO2e"]);
@@ -37,13 +37,13 @@
     addRow(["Simple annual future sequestration fallback", (state.assumptions.annualRate * 100).toFixed(4), "% stored CO2e/year"]);
     addBlank();
 
-    addRow(["5.C Carbon Valuation"]);
+    addRow(["Carbon Valuation"]);
     addRow(["Metric", "Value", "Unit"]);
     addRow(["Carbon value", state.assumptions.carbonPrice.toFixed(2), "GBP/tCO2e"]);
     addRow(["Financial carbon value", state.totals.value.toFixed(2), "GBP"]);
     addBlank();
 
-    addRow(["5.D Ecosystem Services Assessment"]);
+    addRow(["Ecosystem Services Assessment"]);
     addRow(["Metric", "Value", "Unit"]);
     addRow(["Rainfall interception", state.totals.rainfall.toFixed(4), "m3/year"]);
     addRow(["Annual rainfall assumption", state.assumptions.annualRainfallMm.toFixed(2), "mm/year"]);

@@ -13,3 +13,7 @@ Static browser-based tree carbon calculator for Tree Survey Summary workbooks.
 - `reference/` - local reference documents and survey examples, ignored by Git.
 
 Open `index.html` in a browser to run the calculator.
+
+## Deployment
+
+See `docs/aws-deployment.md` for the AWS S3/CloudFront GitHub Actions deployment setup.

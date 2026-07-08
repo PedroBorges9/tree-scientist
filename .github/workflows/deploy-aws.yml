@@ -1,0 +1,56 @@
+name: Deploy static site to AWS
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Build deploy folder
+        run: |
+          mkdir -p site
+          cp index.html site/
+          cp -R assets src data site/
+
+      - name: Upload to S3
+        run: |
+          aws s3 sync site "s3://${{ vars.AWS_S3_BUCKET }}" \
+            --delete \
+            --cache-control "public,max-age=300"
+
+      - name: Set long cache headers for static assets
+        run: |
+          aws s3 sync site/assets "s3://${{ vars.AWS_S3_BUCKET }}/assets" \
+            --delete \
+            --cache-control "public,max-age=31536000,immutable"
+          aws s3 sync site/src "s3://${{ vars.AWS_S3_BUCKET }}/src" \
+            --delete \
+            --cache-control "public,max-age=31536000,immutable"
+          aws s3 sync site/data "s3://${{ vars.AWS_S3_BUCKET }}/data" \
+            --delete \
+            --cache-control "public,max-age=31536000,immutable"
+
+      - name: Invalidate CloudFront cache
+        if: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID != '' }}
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}" \
+            --paths "/*"
