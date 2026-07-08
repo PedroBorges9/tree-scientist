@@ -219,7 +219,7 @@ describe("CSV export", () => {
     expect(csv).toContain('"Tree Loss Schedule"');
     expect(csv).toContain('"Carbon Assessment"');
     expect(csv).toContain('"growth_source"');
-    expect(csv).toContain("Oak YC80");
+    expect(csv).toContain("Forestry Commission Booklet 16");
     expect(csv).not.toContain("5.A");
     expect(csv).not.toContain("5.B");
     expect(csv).not.toContain("5.C");

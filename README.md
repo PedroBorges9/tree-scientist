@@ -203,7 +203,7 @@ future sequestration foregone tCO2e =
 
 The calculator records the growth source used for each row in the CSV export.
 
-Mapped broadleaf species use extracted and validated fcbk016 growth tables:
+Mapped broadleaf species use extracted and validated Forestry Commission Booklet 16 growth tables:
 
 - Oak -> Oak YC80
 - Beech -> Beech YC100
@@ -328,8 +328,8 @@ The `reference/` folder is ignored by Git and is intended for local source docum
 - `reference/Technical Note Quantifying Tree Loss and Associated Carbon and Financial Impacts.docx`
 - `reference/Tree Survey Summary Amended v1.0.xlsx`
 - `reference/yield.pdf`
-- `reference/fcbk016.pdf`
-- `reference/fcbk048_1981.pdf`
+- `reference/fcbk016.pdf` - Forestry Commission Booklet 16
+- `reference/fcbk048_1981.pdf` - Forestry Commission Booklet 48
 
 Because `reference/` is ignored, these documents are not pushed to GitHub. A fresh clone may not include them.
 

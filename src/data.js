@@ -262,7 +262,7 @@
   var BROADLEAF_YIELD_TABLES = {
     oak: {
       label: "Oak YC80",
-      source: "fcbk016 p208",
+      source: "Forestry Commission Booklet 16 p208",
       rows: [
         { age: 20, topHeightFt: 31, meanBhqgIn: 2 },
         { age: 25, topHeightFt: 38, meanBhqgIn: 2.5 },
@@ -290,7 +290,7 @@
     },
     beech: {
       label: "Beech YC100",
-      source: "fcbk016 p210",
+      source: "Forestry Commission Booklet 16 p210",
       rows: [
         { age: 20, topHeightFt: 35, meanBhqgIn: 2.5 },
         { age: 25, topHeightFt: 43, meanBhqgIn: 2.5 },
@@ -318,7 +318,7 @@
     },
     sab: {
       label: "SAB YC120",
-      source: "fcbk016 p214",
+      source: "Forestry Commission Booklet 16 p214",
       rows: [
         { age: 10, topHeightFt: 28.5, meanBhqgIn: 2 },
         { age: 15, topHeightFt: 38, meanBhqgIn: 3.25 },
@@ -339,7 +339,7 @@
     },
     poplar: {
       label: "Poplar YC160",
-      source: "fcbk016 p218",
+      source: "Forestry Commission Booklet 16 p218",
       rows: [
         { age: 5, topHeightFt: 28.5, meanBhqgIn: 4 },
         { age: 10, topHeightFt: 52.5, meanBhqgIn: 7.5 },
