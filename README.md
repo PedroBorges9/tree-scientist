@@ -16,4 +16,6 @@ Open `index.html` in a browser to run the calculator.
 
 ## Deployment
 
-See `docs/aws-deployment.md` for the AWS S3/CloudFront GitHub Actions deployment setup.
+The active deployment target is GitHub Pages. See `docs/github-pages-deployment.md`.
+
+The AWS S3/CloudFront workflow is kept as an optional manual deployment path in `docs/aws-deployment.md`.
