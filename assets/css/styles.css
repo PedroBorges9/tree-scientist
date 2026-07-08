@@ -114,7 +114,7 @@ h3 {
   max-height: calc(100vh - 128px);
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 4px 20px 20px;
+  padding: 10px 12px 14px;
 }
 
 .panel-heading {
@@ -270,12 +270,61 @@ select:focus {
   outline: 2px solid rgba(15, 107, 85, 0.16);
 }
 
+.config-group {
+  border-bottom: 1px solid var(--line);
+}
+
+.config-group:first-child {
+  border-top: 1px solid var(--line);
+}
+
+.config-group summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 800;
+  list-style: none;
+  padding: 0 6px;
+}
+
+.config-group summary::-webkit-details-marker {
+  display: none;
+}
+
+.config-group summary::after {
+  content: "+";
+  color: var(--accent-strong);
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.config-group[open] summary::after {
+  content: "-";
+}
+
+.config-group summary:focus-visible {
+  border-radius: 6px;
+  outline: 2px solid rgba(15, 107, 85, 0.16);
+}
+
+.config-fields {
+  padding: 0 6px 16px;
+}
+
 .assumptions label {
   display: block;
   margin-top: 14px;
   color: var(--muted);
   font-size: 0.84rem;
   font-weight: 700;
+}
+
+.config-fields label:first-child {
+  margin-top: 2px;
 }
 
 .assumptions input,

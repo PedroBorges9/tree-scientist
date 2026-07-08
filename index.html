@@ -197,84 +197,113 @@
 
       <aside class="panel assumptions" aria-labelledby="assumptions-title">
         <div class="assumptions-header">
-          <p class="eyebrow">Editable assumptions</p>
-          <h2 id="assumptions-title">Assessment settings</h2>
+          <p class="eyebrow">Config</p>
+          <h2 id="assumptions-title">Calculation settings</h2>
         </div>
         <div class="assumptions-body">
-          <label>
-            Carbon price, GBP/tCO2e
-            <input id="carbon-price" type="number" min="0" step="1" value="273">
-          </label>
-          <label>
-            Assessment period, years
-            <input id="assessment-years" type="number" min="1" step="1" value="25">
-          </label>
-          <label>
-            Future sequestration model
-            <select id="future-sequestration-model">
-              <option value="projected-growth" selected>Projected WCC biomass growth</option>
-              <option value="simple-rate">Simple stored-carbon rate fallback</option>
-            </select>
-          </label>
-          <label>
-            Simple annual future sequestration, % of stored CO2e
-            <input id="annual-sequestration-rate" type="number" min="0" step="0.01" value="0.85">
-          </label>
-          <label>
-            Fallback annual DBH growth, cm/year
-            <input id="annual-dbh-growth-cm" type="number" min="0" step="0.01" value="0.35">
-          </label>
-          <label>
-            Fallback annual height growth, m/year
-            <input id="annual-height-growth-m" type="number" min="0" step="0.01" value="0.12">
-          </label>
-          <label>
-            Yield class for Forest Yield tables
-            <input id="yield-class" type="number" min="4" max="24" step="2" value="12">
-          </label>
-          <label>
-            Broadleaf stem form factor
-            <input id="broadleaf-form-factor" type="number" min="0.1" max="1" step="0.01" value="0.45">
-          </label>
-          <label>
-            Conifer stem form factor
-            <input id="conifer-form-factor" type="number" min="0.1" max="1" step="0.01" value="0.50">
-          </label>
-          <label>
-            Annual rainfall, mm/year
-            <input id="annual-rainfall-mm" type="number" min="0" step="1" value="800">
-          </label>
-          <label>
-            Broadleaf rainfall interception factor
-            <input id="broadleaf-rainfall-factor" type="number" min="0" max="1" step="0.01" value="0.22">
-          </label>
-          <label>
-            Conifer rainfall interception factor
-            <input id="conifer-rainfall-factor" type="number" min="0" max="1" step="0.01" value="0.32">
-          </label>
-          <label>
-            Unknown species rainfall interception factor
-            <input id="unknown-rainfall-factor" type="number" min="0" max="1" step="0.01" value="0.20">
-          </label>
-          <label>
-            Avoided runoff model
-            <select id="runoff-model">
-              <option value="expanded" selected>Expanded canopy model</option>
-              <option value="simple">Simple per-tree fallback</option>
-            </select>
-          </label>
-          <label>
-            Impervious cover fraction
-            <input id="impervious-cover-fraction" type="number" min="0" max="1" step="0.01" value="0.255">
-          </label>
-          <label>
-            Simple avoided runoff, m3/tree/year
-            <input id="runoff-rate" type="number" min="0" step="0.01" value="1.37">
-          </label>
-          <label>
-            Air pollutant removal, kg/tree/year
-            <input id="pollution-rate" type="number" min="0" step="0.01" value="0.10">
-          </label>
+          <details class="config-group" open>
+            <summary>Carbon and valuation</summary>
+            <div class="config-fields">
+              <label>
+                Carbon price, GBP/tCO2e
+                <input id="carbon-price" type="number" min="0" step="1" value="273">
+              </label>
+              <label>
+                Assessment period, years
+                <input id="assessment-years" type="number" min="1" step="1" value="25">
+              </label>
+            </div>
+          </details>
+
+          <details class="config-group" open>
+            <summary>Future growth</summary>
+            <div class="config-fields">
+              <label>
+                Future sequestration model
+                <select id="future-sequestration-model">
+                  <option value="projected-growth" selected>Projected WCC biomass growth</option>
+                  <option value="simple-rate">Simple stored-carbon rate fallback</option>
+                </select>
+              </label>
+              <label>
+                Simple annual future sequestration, % of stored CO2e
+                <input id="annual-sequestration-rate" type="number" min="0" step="0.01" value="0.85">
+              </label>
+              <label>
+                Fallback annual DBH growth, cm/year
+                <input id="annual-dbh-growth-cm" type="number" min="0" step="0.01" value="0.35">
+              </label>
+              <label>
+                Fallback annual height growth, m/year
+                <input id="annual-height-growth-m" type="number" min="0" step="0.01" value="0.12">
+              </label>
+              <label>
+                Yield class for Forest Yield tables
+                <input id="yield-class" type="number" min="4" max="24" step="2" value="12">
+              </label>
+            </div>
+          </details>
+
+          <details class="config-group">
+            <summary>Biomass assumptions</summary>
+            <div class="config-fields">
+              <label>
+                Broadleaf stem form factor
+                <input id="broadleaf-form-factor" type="number" min="0.1" max="1" step="0.01" value="0.45">
+              </label>
+              <label>
+                Conifer stem form factor
+                <input id="conifer-form-factor" type="number" min="0.1" max="1" step="0.01" value="0.50">
+              </label>
+            </div>
+          </details>
+
+          <details class="config-group">
+            <summary>Water services</summary>
+            <div class="config-fields">
+              <label>
+                Annual rainfall, mm/year
+                <input id="annual-rainfall-mm" type="number" min="0" step="1" value="800">
+              </label>
+              <label>
+                Broadleaf rainfall interception factor
+                <input id="broadleaf-rainfall-factor" type="number" min="0" max="1" step="0.01" value="0.22">
+              </label>
+              <label>
+                Conifer rainfall interception factor
+                <input id="conifer-rainfall-factor" type="number" min="0" max="1" step="0.01" value="0.32">
+              </label>
+              <label>
+                Unknown species rainfall interception factor
+                <input id="unknown-rainfall-factor" type="number" min="0" max="1" step="0.01" value="0.20">
+              </label>
+              <label>
+                Avoided runoff model
+                <select id="runoff-model">
+                  <option value="expanded" selected>Expanded canopy model</option>
+                  <option value="simple">Simple per-tree fallback</option>
+                </select>
+              </label>
+              <label>
+                Impervious cover fraction
+                <input id="impervious-cover-fraction" type="number" min="0" max="1" step="0.01" value="0.255">
+              </label>
+              <label>
+                Simple avoided runoff, m3/tree/year
+                <input id="runoff-rate" type="number" min="0" step="0.01" value="1.37">
+              </label>
+            </div>
+          </details>
+
+          <details class="config-group">
+            <summary>Air quality</summary>
+            <div class="config-fields">
+              <label>
+                Air pollutant removal, kg/tree/year
+                <input id="pollution-rate" type="number" min="0" step="0.01" value="0.10">
+              </label>
+            </div>
+          </details>
         </div>
       </aside>
     </main>
