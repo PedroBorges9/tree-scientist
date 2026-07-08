@@ -82,34 +82,227 @@ The CSV export includes:
 - Growth source used for each row
 - Projected DBH and height values
 
-## Calculation Notes
+## Calculation Methodology
 
-Current stored carbon is calculated from estimated biomass:
+The calculation code is in `src/calculations.js`. Species coefficients, WCC biomass equation coefficients, growth groups, and extracted yield tables are in `src/data.js`.
 
-- Stem biomass uses estimated stem volume multiplied by nominal specific gravity.
-- Crown and root biomass use DBH-based WCC equations.
-- Carbon is biomass multiplied by `0.5`.
-- CO2e is carbon multiplied by `44 / 12`.
+The CSV export includes the main input values, calculated biomass components, stored carbon, future carbon, projected dimensions, and the growth source used for each tree row. Use this export for row-level auditing.
 
-Future sequestration foregone is estimated by:
+### Input Normalisation
 
-1. Projecting DBH and height over the assessment period.
-2. Recalculating biomass/carbon at the projected size.
-3. Taking the difference between projected and current stored carbon.
-
-Rainfall interception is estimated as:
+Survey girth is converted to DBH:
 
 ```text
-canopy area x annual rainfall x species-group interception factor
+DBH cm = girth m / pi x 100
 ```
 
-Avoided runoff uses the expanded screening model by default:
+Basal area is calculated from DBH:
 
 ```text
-rainfall interception x impervious cover fraction
+DBH m = DBH cm / 100
+basal area m2 = pi x DBH m^2 / 4
 ```
 
-A simple per-tree avoided-runoff fallback is also available in Config.
+Canopy area is calculated from spread:
+
+```text
+canopy area m2 = pi x (spread m / 2)^2
+```
+
+Rows without positive girth/DBH, height, and count do not contribute to totals. Stumps and deceased trees are retained as excluded rows but contribute zero living-tree biomass, carbon, rainfall interception, and runoff.
+
+### Current Stored Carbon Lost
+
+Current stored carbon lost is based on estimated whole-tree biomass. The calculator separates biomass into stem, crown, and root components.
+
+Stem volume is estimated from measured dimensions and an editable form factor:
+
+```text
+stem volume m3 = basal area m2 x height m x stem form factor
+```
+
+The form factor is selected from Config:
+
+- Broadleaf stem form factor
+- Conifer stem form factor
+
+Stem biomass is then:
+
+```text
+stem biomass t = stem volume m3 x nominal specific gravity
+```
+
+Nominal specific gravity comes from the species mapping in `src/data.js`.
+
+Crown biomass uses WCC DBH equations from the selected crown group:
+
+```text
+if DBH <= 50 cm:
+  crown biomass t = b x DBH^p
+
+if DBH > 50 cm:
+  crown biomass t = max(0, a + b x DBH)
+```
+
+Root biomass uses WCC DBH equations from the selected root group:
+
+```text
+if DBH <= 30 cm:
+  root biomass t = b x DBH^2.5
+
+if DBH > 30 cm:
+  root biomass t = max(0, a + b x DBH)
+```
+
+Total biomass and CO2e are:
+
+```text
+biomass t = stem biomass + crown biomass + root biomass
+carbon tC = biomass t x 0.5
+stored carbon tCO2e = carbon tC x 44 / 12
+```
+
+For grouped rows, biomass and stored carbon are multiplied by `count`.
+
+### Future Sequestration Foregone
+
+The default future model is `Projected WCC biomass growth`.
+
+For each tree row:
+
+1. Estimate annual DBH and height growth.
+2. Adjust growth by age class, condition, and assessment period.
+3. Project DBH and height.
+4. Recalculate biomass and stored carbon at the projected dimensions.
+5. Take the positive difference between projected CO2e and current CO2e.
+
+```text
+growth factor = age factor x condition factor x assessment years
+
+projected DBH cm = current DBH cm + annual DBH growth cm x growth factor
+projected height m = current height m + annual height growth m x growth factor
+
+future sequestration foregone tCO2e =
+  max(0, projected stored carbon tCO2e - current stored carbon tCO2e)
+```
+
+Age factors and condition factors are defined in `src/data.js`.
+
+If the `Simple stored-carbon rate fallback` model is selected, future sequestration is:
+
+```text
+future sequestration foregone tCO2e =
+  current stored carbon tCO2e
+  x annual simple sequestration rate
+  x assessment years
+  x age factor
+  x condition factor
+```
+
+### Growth Source Selection
+
+The calculator records the growth source used for each row in the CSV export.
+
+Mapped broadleaf species use extracted and validated fcbk016 growth tables:
+
+- Oak -> Oak YC80
+- Beech -> Beech YC100
+- Ash, Sycamore, Alder, Birch, Maple, Elm -> SAB YC120
+- Poplar, Willow -> Poplar YC160
+
+For these tables:
+
+```text
+top height ft is converted to metres:
+  top height m = top height ft x 0.3048
+
+mean BHQG inches is converted to DBH cm:
+  DBH cm = mean BHQG in x 2.54 x 4 / pi
+```
+
+The calculator finds the table interval matching the current height where possible, then derives annual DBH and height increments from the interval:
+
+```text
+annual DBH growth cm = (next table DBH cm - current table DBH cm) / years between rows
+annual height growth m = (next table height m - current table height m) / years between rows
+```
+
+Conifers with Forest Yield top-height tables use those tables for height growth and the species-group fallback for DBH growth.
+
+Species without validated table mappings use the generic species-group fallback rates in Config.
+
+### Total Carbon Impact And Valuation
+
+Total carbon impact is:
+
+```text
+total carbon impact tCO2e =
+  carbon stored lost tCO2e + future sequestration foregone tCO2e
+```
+
+Financial carbon value is:
+
+```text
+financial carbon value GBP =
+  total carbon impact tCO2e x carbon price GBP/tCO2e
+```
+
+The carbon price is editable in Config.
+
+### Rainfall Interception
+
+Rainfall interception is based on canopy area, annual rainfall, and species-group interception factors:
+
+```text
+rainfall interception m3/year =
+  canopy area m2
+  x annual rainfall mm/year
+  x rainfall interception factor
+  / 1000
+  x count
+```
+
+The `/ 1000` converts millimetres of rainfall over square metres into cubic metres.
+
+The interception factor is selected from Config according to species type:
+
+- Broadleaf
+- Conifer
+- Unknown species
+
+### Avoided Runoff
+
+The default avoided-runoff model is the expanded screening model:
+
+```text
+avoided runoff m3/year =
+  rainfall interception m3/year x impervious cover fraction
+```
+
+A simple fallback model can be selected in Config:
+
+```text
+avoided runoff m3/year =
+  count x simple avoided runoff rate m3/tree/year
+```
+
+### Air Pollutant Removal
+
+Air pollutant removal is currently a simple per-tree screening estimate:
+
+```text
+air pollutant removal kg/year =
+  living tree count x air pollutant removal rate kg/tree/year
+```
+
+The rate is editable in Config.
+
+### Important Audit Limits
+
+- Stem volume is estimated from DBH, height, and form factor because the WCC biomass equations require total stem volume as an input.
+- Species not explicitly listed in source tables are mapped to nearest calculation groups and should be reviewed before formal reporting.
+- Rainfall interception, avoided runoff, and air pollutant removal are screening estimates, not full hydrological or air-quality simulations.
+- The model is deterministic: the same input rows and Config assumptions produce the same outputs.
 
 ## Species Growth Data
 
