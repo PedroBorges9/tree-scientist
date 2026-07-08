@@ -12,6 +12,10 @@ Set:
 
 - Source: `GitHub Actions`
 
+If the deployment fails with a message about Pages not being enabled, this setting
+is the fix. The workflow can upload and deploy only after GitHub Pages is enabled
+for the repository.
+
 After that, every push to `main` runs `.github/workflows/deploy-pages.yml`.
 
 ## Deployment contents
