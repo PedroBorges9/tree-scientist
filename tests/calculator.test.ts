@@ -108,6 +108,17 @@ beforeEach(() => {
 });
 
 describe("tree carbon calculations", () => {
+  it("returns zero totals when there are no tree rows", () => {
+    const assessment = calculate([]);
+
+    expect(assessment.totals.totalTrees).toBe(0);
+    expect(assessment.totals.stored).toBe(0);
+    expect(assessment.totals.future).toBe(0);
+    expect(assessment.totals.impact).toBe(0);
+    expect(assessment.totals.value).toBe(0);
+    expect(assessment.schedule).toHaveLength(0);
+  });
+
   it("converts girth to DBH", () => {
     expect(window.CarbonCalculations.girthToDbhCm(Math.PI)).toBeCloseTo(100, 6);
   });

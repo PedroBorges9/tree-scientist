@@ -65,18 +65,28 @@
 
   function readRows() {
     return Array.from(treeRows.querySelectorAll("tr")).map(function (tr) {
+      var girth = parseFloat(tr.querySelector(".girth").value) || 0;
+      var dbhInput = parseFloat(tr.querySelector(".dbh").value);
+      var height = parseFloat(tr.querySelector(".height").value) || 0;
+      var count = parseInt(tr.querySelector(".count").value, 10) || 0;
+      var dbh = Number.isFinite(dbhInput) && dbhInput > 0 ?
+        Math.max(7, dbhInput) :
+        (girth > 0 ? Math.max(7, window.CarbonCalculations.girthToDbhCm(girth)) : 0);
+
       return {
         observation: tr.querySelector(".observation").value.trim(),
         species: tr.querySelector(".species").value,
-        girth: parseFloat(tr.querySelector(".girth").value) || 0,
-        dbh: Math.max(7, parseFloat(tr.querySelector(".dbh").value) || 7),
-        height: Math.max(1, parseFloat(tr.querySelector(".height").value) || 1),
+        girth: girth,
+        dbh: dbh,
+        height: height,
         spread: parseFloat(tr.querySelector(".spread").value) || 0,
         ageClass: tr.querySelector(".age-class").value,
         condition: tr.querySelector(".condition").value,
         location: tr.querySelector(".location").value.trim() || "Site",
-        count: Math.max(1, parseInt(tr.querySelector(".count").value, 10) || 1)
+        count: Math.max(0, count)
       };
+    }).filter(function (row) {
+      return row.dbh > 0 && row.height > 0 && row.count > 0;
     });
   }
 
@@ -142,13 +152,13 @@
       row.querySelector(".observation").value = values.observation || "";
       row.querySelector(".species").value = values.species || "Oak";
       row.querySelector(".girth").value = values.girth || "";
-      row.querySelector(".dbh").value = values.dbh || 30;
-      row.querySelector(".height").value = values.height || 12;
+      row.querySelector(".dbh").value = values.dbh || "";
+      row.querySelector(".height").value = values.height || "";
       row.querySelector(".spread").value = values.spread || "";
       row.querySelector(".age-class").value = values.ageClass || "mature";
       row.querySelector(".condition").value = values.condition || "good";
       row.querySelector(".location").value = values.location || "Site";
-      row.querySelector(".count").value = values.count || 1;
+      row.querySelector(".count").value = values.count || "";
     }
 
     row.querySelector(".girth").addEventListener("input", function () {
@@ -160,10 +170,8 @@
     row.addEventListener("input", calculate);
     row.addEventListener("change", calculate);
     row.querySelector(".remove-row").addEventListener("click", function () {
-      if (treeRows.children.length > 1) {
-        row.remove();
-        calculate();
-      }
+      row.remove();
+      calculate();
     });
 
     treeRows.appendChild(fragment);
@@ -230,5 +238,5 @@
     select.addEventListener("change", calculate);
   });
 
-  addTree({ species: "Oak", dbh: 45, height: 18, spread: 10, ageClass: "mature", condition: "good", location: "Site", count: 1 });
+  calculate();
 })();
