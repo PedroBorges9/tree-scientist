@@ -13,7 +13,9 @@ Expected survey columns
 - Species
 
 Notes
-- Keep all files from this folder together. The calculator code is split across several JavaScript files.
+- Keep index.html, assets/, src/, and data/ together. The calculator code is split across several JavaScript files.
+- The portable ZIP is in dist/.
+- Local source PDFs, Word documents, and workbook examples can be kept in reference/; that folder is not pushed to GitHub.
 - Girth is converted to DBH using DBH = girth / pi.
 - Carbon stored lost is calculated from WCC biomass allocation and carbon conversion.
 - Future sequestration foregone uses projected DBH/height growth by default, then recalculates WCC biomass/carbon at the projected size.
