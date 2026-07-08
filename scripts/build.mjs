@@ -4,12 +4,7 @@ import path from "node:path";
 const root = process.cwd();
 const outputDir = path.join(root, "build");
 
-const copyTargets = [
-  "index.html",
-  "assets",
-  "src",
-  "data"
-];
+const copyTargets = ["index.html", "assets", "src", "data"];
 
 fs.rmSync(outputDir, { recursive: true, force: true });
 fs.mkdirSync(outputDir, { recursive: true });

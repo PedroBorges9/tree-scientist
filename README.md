@@ -172,13 +172,23 @@ Run TypeScript checks:
 npm run typecheck
 ```
 
+Check formatting:
+
+```bash
+npm run format:check
+```
+
 Build the static site into `build/`:
 
 ```bash
 npm run build
 ```
 
-The test suite uses Vitest and TypeScript. The CI workflow runs typecheck, tests, and build on pushes and pull requests.
+The test suite uses Vitest and TypeScript. The CI workflow runs typecheck, formatting checks, tests, and build on pushes and pull requests.
+
+## Code Conventions
+
+See `docs/code-conventions.md`.
 
 ## Deployment
 

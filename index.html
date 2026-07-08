@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Tree Carbon Calculator</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body>
     <header class="app-header">
@@ -19,7 +19,9 @@
         <div class="panel-heading">
           <div>
             <h2 id="report-title">Results</h2>
-            <p class="result-meta">Assessment period: <span id="assessment-period-output">25 years</span></p>
+            <p class="result-meta">
+              Assessment period: <span id="assessment-period-output">25 years</span>
+            </p>
           </div>
           <button id="export-csv" type="button">Export CSV</button>
         </div>
@@ -64,66 +66,88 @@
         <article class="report-section">
           <h3>Carbon Assessment</h3>
           <dl class="report-list">
-            <div><dt>Carbon stored lost</dt><dd id="stored-output">0 tCO2e</dd></div>
-            <div><dt>Future sequestration foregone</dt><dd id="future-output">0 tCO2e</dd></div>
-            <div><dt>Total carbon impact</dt><dd id="impact-output">0 tCO2e</dd></div>
+            <div>
+              <dt>Carbon stored lost</dt>
+              <dd id="stored-output">0 tCO2e</dd>
+            </div>
+            <div>
+              <dt>Future sequestration foregone</dt>
+              <dd id="future-output">0 tCO2e</dd>
+            </div>
+            <div>
+              <dt>Total carbon impact</dt>
+              <dd id="impact-output">0 tCO2e</dd>
+            </div>
           </dl>
         </article>
 
         <article class="report-section">
           <h3>Carbon Valuation</h3>
           <dl class="report-list">
-            <div><dt>Carbon value</dt><dd id="price-output">GBP 273/tCO2e</dd></div>
-            <div><dt>Financial carbon value</dt><dd id="value-output">GBP 0</dd></div>
+            <div>
+              <dt>Carbon value</dt>
+              <dd id="price-output">GBP 273/tCO2e</dd>
+            </div>
+            <div>
+              <dt>Financial carbon value</dt>
+              <dd id="value-output">GBP 0</dd>
+            </div>
           </dl>
         </article>
 
         <article class="report-section">
           <h3>Ecosystem Services Assessment</h3>
           <dl class="report-list">
-            <div><dt>Rainfall interception</dt><dd id="rainfall-output">0 m3/year</dd></div>
-            <div><dt>Avoided runoff</dt><dd id="runoff-output">0 m3/year</dd></div>
-            <div><dt>Air pollutant removal</dt><dd id="pollution-output">0 kg/year</dd></div>
+            <div>
+              <dt>Rainfall interception</dt>
+              <dd id="rainfall-output">0 m3/year</dd>
+            </div>
+            <div>
+              <dt>Avoided runoff</dt>
+              <dd id="runoff-output">0 m3/year</dd>
+            </div>
+            <div>
+              <dt>Air pollutant removal</dt>
+              <dd id="pollution-output">0 kg/year</dd>
+            </div>
           </dl>
         </article>
 
         <article class="method-note">
           <h3>Method basis</h3>
           <p>
-            WCC Carbon Assessment Protocol v2.0 section 5 is used for biomass allocation:
-            stem biomass equals estimated total stem volume times nominal specific gravity;
-            crown and root biomass use the protocol DBH equations; tree carbon is biomass
-            times 0.5; CO2e is carbon times 44/12.
+            WCC Carbon Assessment Protocol v2.0 section 5 is used for biomass allocation: stem
+            biomass equals estimated total stem volume times nominal specific gravity; crown and
+            root biomass use the protocol DBH equations; tree carbon is biomass times 0.5; CO2e is
+            carbon times 44/12.
           </p>
           <p>
-            Stem volume is estimated here from DBH, height, and an editable form factor
-            because the section 5 equations require total stem volume as an input.
-            Future sequestration foregone is estimated by projecting DBH and height over
-            the assessment period, recalculating WCC biomass/carbon at the projected size,
-            and taking the difference from current stored carbon. Where the Forest Yield
-            handbook provides a matching Appendix 2 top-height increment table, that
-            species table is used for height growth; otherwise species-group fallback
-            growth is used.
+            Stem volume is estimated here from DBH, height, and an editable form factor because the
+            section 5 equations require total stem volume as an input. Future sequestration foregone
+            is estimated by projecting DBH and height over the assessment period, recalculating WCC
+            biomass/carbon at the projected size, and taking the difference from current stored
+            carbon. Where the Forest Yield handbook provides a matching Appendix 2 top-height
+            increment table, that species table is used for height growth; otherwise species-group
+            fallback growth is used.
           </p>
           <p>
-            Species not explicitly listed in the WCC nominal specific gravity table are
-            mapped to the nearest broadleaf or conifer calculation group and should be
-            reviewed before formal reporting.
+            Species not explicitly listed in the WCC nominal specific gravity table are mapped to
+            the nearest broadleaf or conifer calculation group and should be reviewed before formal
+            reporting.
           </p>
           <p>
-            Tree Survey Summary workbooks are imported from columns B-F. Girth is
-            converted to DBH using DBH = girth / pi. Stumps and deceased trees are
-            excluded from living-tree WCC biomass totals.
+            Tree Survey Summary workbooks are imported from columns B-F. Girth is converted to DBH
+            using DBH = girth / pi. Stumps and deceased trees are excluded from living-tree WCC
+            biomass totals.
           </p>
           <p>
-            Rainfall interception is estimated as canopy area x annual rainfall x
-            species-group interception factor. Canopy area is calculated from spread as
-            pi x (spread / 2)^2.
+            Rainfall interception is estimated as canopy area x annual rainfall x species-group
+            interception factor. Canopy area is calculated from spread as pi x (spread / 2)^2.
           </p>
           <p>
-            Avoided runoff uses the expanded i-Tree-style screening formula by default:
-            rainfall interception x impervious cover fraction. The simple per-tree rate is
-            retained as a fallback option.
+            Avoided runoff uses the expanded i-Tree-style screening formula by default: rainfall
+            interception x impervious cover fraction. The simple per-tree rate is retained as a
+            fallback option.
           </p>
         </article>
       </section>
@@ -143,7 +167,7 @@
         <div class="import-grid">
           <label class="file-drop">
             <span>Import Excel workbook</span>
-            <input id="survey-file" type="file" accept=".xlsx,.csv,text/csv">
+            <input id="survey-file" type="file" accept=".xlsx,.csv,text/csv" />
           </label>
           <label>
             Default age class
@@ -166,7 +190,7 @@
           </label>
           <label>
             Default location
-            <input id="default-location" type="text" value="Eccles WwTW">
+            <input id="default-location" type="text" value="Eccles WwTW" />
           </label>
         </div>
         <p id="import-status" class="import-status">
@@ -206,11 +230,11 @@
             <div class="config-fields">
               <label>
                 Carbon price, GBP/tCO2e
-                <input id="carbon-price" type="number" min="0" step="1" value="273">
+                <input id="carbon-price" type="number" min="0" step="1" value="273" />
               </label>
               <label>
                 Assessment period, years
-                <input id="assessment-years" type="number" min="1" step="1" value="25">
+                <input id="assessment-years" type="number" min="1" step="1" value="25" />
               </label>
             </div>
           </details>
@@ -227,19 +251,25 @@
               </label>
               <label>
                 Simple annual future sequestration, % of stored CO2e
-                <input id="annual-sequestration-rate" type="number" min="0" step="0.01" value="0.85">
+                <input
+                  id="annual-sequestration-rate"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value="0.85"
+                />
               </label>
               <label>
                 Fallback annual DBH growth, cm/year
-                <input id="annual-dbh-growth-cm" type="number" min="0" step="0.01" value="0.35">
+                <input id="annual-dbh-growth-cm" type="number" min="0" step="0.01" value="0.35" />
               </label>
               <label>
                 Fallback annual height growth, m/year
-                <input id="annual-height-growth-m" type="number" min="0" step="0.01" value="0.12">
+                <input id="annual-height-growth-m" type="number" min="0" step="0.01" value="0.12" />
               </label>
               <label>
                 Yield class for Forest Yield tables
-                <input id="yield-class" type="number" min="4" max="24" step="2" value="12">
+                <input id="yield-class" type="number" min="4" max="24" step="2" value="12" />
               </label>
             </div>
           </details>
@@ -249,11 +279,25 @@
             <div class="config-fields">
               <label>
                 Broadleaf stem form factor
-                <input id="broadleaf-form-factor" type="number" min="0.1" max="1" step="0.01" value="0.45">
+                <input
+                  id="broadleaf-form-factor"
+                  type="number"
+                  min="0.1"
+                  max="1"
+                  step="0.01"
+                  value="0.45"
+                />
               </label>
               <label>
                 Conifer stem form factor
-                <input id="conifer-form-factor" type="number" min="0.1" max="1" step="0.01" value="0.50">
+                <input
+                  id="conifer-form-factor"
+                  type="number"
+                  min="0.1"
+                  max="1"
+                  step="0.01"
+                  value="0.50"
+                />
               </label>
             </div>
           </details>
@@ -263,19 +307,40 @@
             <div class="config-fields">
               <label>
                 Annual rainfall, mm/year
-                <input id="annual-rainfall-mm" type="number" min="0" step="1" value="800">
+                <input id="annual-rainfall-mm" type="number" min="0" step="1" value="800" />
               </label>
               <label>
                 Broadleaf rainfall interception factor
-                <input id="broadleaf-rainfall-factor" type="number" min="0" max="1" step="0.01" value="0.22">
+                <input
+                  id="broadleaf-rainfall-factor"
+                  type="number"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value="0.22"
+                />
               </label>
               <label>
                 Conifer rainfall interception factor
-                <input id="conifer-rainfall-factor" type="number" min="0" max="1" step="0.01" value="0.32">
+                <input
+                  id="conifer-rainfall-factor"
+                  type="number"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value="0.32"
+                />
               </label>
               <label>
                 Unknown species rainfall interception factor
-                <input id="unknown-rainfall-factor" type="number" min="0" max="1" step="0.01" value="0.20">
+                <input
+                  id="unknown-rainfall-factor"
+                  type="number"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value="0.20"
+                />
               </label>
               <label>
                 Avoided runoff model
@@ -286,11 +351,18 @@
               </label>
               <label>
                 Impervious cover fraction
-                <input id="impervious-cover-fraction" type="number" min="0" max="1" step="0.01" value="0.255">
+                <input
+                  id="impervious-cover-fraction"
+                  type="number"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value="0.255"
+                />
               </label>
               <label>
                 Simple avoided runoff, m3/tree/year
-                <input id="runoff-rate" type="number" min="0" step="0.01" value="1.37">
+                <input id="runoff-rate" type="number" min="0" step="0.01" value="1.37" />
               </label>
             </div>
           </details>
@@ -300,7 +372,7 @@
             <div class="config-fields">
               <label>
                 Air pollutant removal, kg/tree/year
-                <input id="pollution-rate" type="number" min="0" step="0.01" value="0.10">
+                <input id="pollution-rate" type="number" min="0" step="0.01" value="0.10" />
               </label>
             </div>
           </details>
@@ -310,14 +382,14 @@
 
     <template id="tree-row-template">
       <tr>
-        <td><input class="observation" type="text" value=""></td>
+        <td><input class="observation" type="text" value="" /></td>
         <td>
           <select class="species"></select>
         </td>
-        <td><input class="girth" type="number" min="0" step="0.01" value=""></td>
-        <td><input class="dbh" type="number" min="0" step="0.1" value=""></td>
-        <td><input class="height" type="number" min="0" step="0.1" value=""></td>
-        <td><input class="spread" type="number" min="0" step="0.1" value=""></td>
+        <td><input class="girth" type="number" min="0" step="0.01" value="" /></td>
+        <td><input class="dbh" type="number" min="0" step="0.1" value="" /></td>
+        <td><input class="height" type="number" min="0" step="0.1" value="" /></td>
+        <td><input class="spread" type="number" min="0" step="0.1" value="" /></td>
         <td>
           <select class="age-class">
             <option value="young">Young</option>
@@ -335,9 +407,11 @@
             <option value="dead">Dead</option>
           </select>
         </td>
-        <td><input class="location" type="text" value="Site"></td>
-        <td><input class="count" type="number" min="0" step="1" value=""></td>
-        <td><button class="icon-button remove-row" type="button" aria-label="Remove row">x</button></td>
+        <td><input class="location" type="text" value="Site" /></td>
+        <td><input class="count" type="number" min="0" step="1" value="" /></td>
+        <td>
+          <button class="icon-button remove-row" type="button" aria-label="Remove row">x</button>
+        </td>
       </tr>
     </template>
 

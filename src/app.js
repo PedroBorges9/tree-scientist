@@ -16,21 +16,29 @@
   }
 
   function tonnes(value) {
-    return value.toLocaleString("en-GB", {
-      maximumFractionDigits: value >= 100 ? 0 : 2
-    }) + " tCO2e";
+    return (
+      value.toLocaleString("en-GB", {
+        maximumFractionDigits: value >= 100 ? 0 : 2
+      }) + " tCO2e"
+    );
   }
 
   function biomassTonnes(value) {
-    return value.toLocaleString("en-GB", {
-      maximumFractionDigits: value >= 100 ? 0 : 3
-    }) + " t";
+    return (
+      value.toLocaleString("en-GB", {
+        maximumFractionDigits: value >= 100 ? 0 : 3
+      }) + " t"
+    );
   }
 
   function serviceValue(value, unit) {
-    return value.toLocaleString("en-GB", {
-      maximumFractionDigits: value >= 100 ? 0 : 2
-    }) + " " + unit;
+    return (
+      value.toLocaleString("en-GB", {
+        maximumFractionDigits: value >= 100 ? 0 : 2
+      }) +
+      " " +
+      unit
+    );
   }
 
   function getAssumptions() {
@@ -64,30 +72,35 @@
   }
 
   function readRows() {
-    return Array.from(treeRows.querySelectorAll("tr")).map(function (tr) {
-      var girth = parseFloat(tr.querySelector(".girth").value) || 0;
-      var dbhInput = parseFloat(tr.querySelector(".dbh").value);
-      var height = parseFloat(tr.querySelector(".height").value) || 0;
-      var count = parseInt(tr.querySelector(".count").value, 10) || 0;
-      var dbh = Number.isFinite(dbhInput) && dbhInput > 0 ?
-        Math.max(7, dbhInput) :
-        (girth > 0 ? Math.max(7, window.CarbonCalculations.girthToDbhCm(girth)) : 0);
+    return Array.from(treeRows.querySelectorAll("tr"))
+      .map(function (tr) {
+        var girth = parseFloat(tr.querySelector(".girth").value) || 0;
+        var dbhInput = parseFloat(tr.querySelector(".dbh").value);
+        var height = parseFloat(tr.querySelector(".height").value) || 0;
+        var count = parseInt(tr.querySelector(".count").value, 10) || 0;
+        var dbh =
+          Number.isFinite(dbhInput) && dbhInput > 0
+            ? Math.max(7, dbhInput)
+            : girth > 0
+              ? Math.max(7, window.CarbonCalculations.girthToDbhCm(girth))
+              : 0;
 
-      return {
-        observation: tr.querySelector(".observation").value.trim(),
-        species: tr.querySelector(".species").value,
-        girth: girth,
-        dbh: dbh,
-        height: height,
-        spread: parseFloat(tr.querySelector(".spread").value) || 0,
-        ageClass: tr.querySelector(".age-class").value,
-        condition: tr.querySelector(".condition").value,
-        location: tr.querySelector(".location").value.trim() || "Site",
-        count: Math.max(0, count)
-      };
-    }).filter(function (row) {
-      return row.dbh > 0 && row.height > 0 && row.count > 0;
-    });
+        return {
+          observation: tr.querySelector(".observation").value.trim(),
+          species: tr.querySelector(".species").value,
+          girth: girth,
+          dbh: dbh,
+          height: height,
+          spread: parseFloat(tr.querySelector(".spread").value) || 0,
+          ageClass: tr.querySelector(".age-class").value,
+          condition: tr.querySelector(".condition").value,
+          location: tr.querySelector(".location").value.trim() || "Site",
+          count: Math.max(0, count)
+        };
+      })
+      .filter(function (row) {
+        return row.dbh > 0 && row.height > 0 && row.count > 0;
+      });
   }
 
   function setImportStatus(message, statusClass) {
@@ -122,11 +135,18 @@
     document.getElementById("stored-output").textContent = tonnes(totals.stored);
     document.getElementById("future-output").textContent = tonnes(totals.future);
     document.getElementById("impact-output").textContent = tonnes(totals.impact);
-    document.getElementById("price-output").textContent = currency(assessment.assumptions.carbonPrice) + "/tCO2e";
+    document.getElementById("price-output").textContent =
+      currency(assessment.assumptions.carbonPrice) + "/tCO2e";
     document.getElementById("value-output").textContent = currency(totals.value);
-    document.getElementById("rainfall-output").textContent = serviceValue(totals.rainfall, "m3/year");
+    document.getElementById("rainfall-output").textContent = serviceValue(
+      totals.rainfall,
+      "m3/year"
+    );
     document.getElementById("runoff-output").textContent = serviceValue(totals.runoff, "m3/year");
-    document.getElementById("pollution-output").textContent = serviceValue(totals.pollution, "kg/year");
+    document.getElementById("pollution-output").textContent = serviceValue(
+      totals.pollution,
+      "kg/year"
+    );
     renderSchedule(assessment.schedule);
   }
 
@@ -195,11 +215,56 @@
 
   function loadExample() {
     replaceRows([
-      { species: "Oak", dbh: 42, height: 18, spread: 10, ageClass: "mature", condition: "good", location: "Eccles WwTW", count: 85 },
-      { species: "Ash", dbh: 28, height: 14, spread: 7, ageClass: "early-mature", condition: "fair", location: "Eccles WwTW", count: 120 },
-      { species: "Birch", dbh: 22, height: 13, spread: 6, ageClass: "semi-mature", condition: "good", location: "Eccles WwTW", count: 160 },
-      { species: "Sycamore", dbh: 34, height: 16, spread: 8, ageClass: "mature", condition: "good", location: "Eccles WwTW", count: 95 },
-      { species: "Pine", dbh: 31, height: 17, spread: 7, ageClass: "mature", condition: "fair", location: "Eccles WwTW", count: 70 }
+      {
+        species: "Oak",
+        dbh: 42,
+        height: 18,
+        spread: 10,
+        ageClass: "mature",
+        condition: "good",
+        location: "Eccles WwTW",
+        count: 85
+      },
+      {
+        species: "Ash",
+        dbh: 28,
+        height: 14,
+        spread: 7,
+        ageClass: "early-mature",
+        condition: "fair",
+        location: "Eccles WwTW",
+        count: 120
+      },
+      {
+        species: "Birch",
+        dbh: 22,
+        height: 13,
+        spread: 6,
+        ageClass: "semi-mature",
+        condition: "good",
+        location: "Eccles WwTW",
+        count: 160
+      },
+      {
+        species: "Sycamore",
+        dbh: 34,
+        height: 16,
+        spread: 8,
+        ageClass: "mature",
+        condition: "good",
+        location: "Eccles WwTW",
+        count: 95
+      },
+      {
+        species: "Pine",
+        dbh: 31,
+        height: 17,
+        spread: 7,
+        ageClass: "mature",
+        condition: "fair",
+        location: "Eccles WwTW",
+        count: 70
+      }
     ]);
   }
 
@@ -212,20 +277,29 @@
     try {
       var imported = await window.CarbonImporter.parseSurveyFile(file, defaultImportValues());
       if (!imported.rows.length) {
-        setImportStatus("No usable tree rows found. Check the workbook or CSV columns.", "is-error");
+        setImportStatus(
+          "No usable tree rows found. Check the workbook or CSV columns.",
+          "is-error"
+        );
         return;
       }
       replaceRows(
         imported.rows,
-        "Imported " + imported.rows.length.toLocaleString("en-GB") + " rows" +
-          (imported.excluded ? "; excluded " + imported.excluded + " stump/deceased rows from living-tree biomass." : ".")
+        "Imported " +
+          imported.rows.length.toLocaleString("en-GB") +
+          " rows" +
+          (imported.excluded
+            ? "; excluded " + imported.excluded + " stump/deceased rows from living-tree biomass."
+            : ".")
       );
     } catch (error) {
       setImportStatus(error.message || "Import failed.", "is-error");
     }
   }
 
-  document.getElementById("add-tree").addEventListener("click", function () { addTree(); });
+  document.getElementById("add-tree").addEventListener("click", function () {
+    addTree();
+  });
   document.getElementById("load-example").addEventListener("click", loadExample);
   document.getElementById("export-csv").addEventListener("click", function () {
     if (currentAssessment) {

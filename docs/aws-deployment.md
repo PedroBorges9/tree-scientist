@@ -47,25 +47,17 @@ Attach a policy like this to the role, replacing the bucket name and CloudFront 
   "Statement": [
     {
       "Effect": "Allow",
-      "Action": [
-        "s3:ListBucket"
-      ],
+      "Action": ["s3:ListBucket"],
       "Resource": "arn:aws:s3:::tree-scientist-site"
     },
     {
       "Effect": "Allow",
-      "Action": [
-        "s3:DeleteObject",
-        "s3:GetObject",
-        "s3:PutObject"
-      ],
+      "Action": ["s3:DeleteObject", "s3:GetObject", "s3:PutObject"],
       "Resource": "arn:aws:s3:::tree-scientist-site/*"
     },
     {
       "Effect": "Allow",
-      "Action": [
-        "cloudfront:CreateInvalidation"
-      ],
+      "Action": ["cloudfront:CreateInvalidation"],
       "Resource": "arn:aws:cloudfront::<AWS_ACCOUNT_ID>:distribution/<DISTRIBUTION_ID>"
     }
   ]

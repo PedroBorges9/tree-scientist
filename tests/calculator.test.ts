@@ -36,14 +36,38 @@ type Assumptions = {
   pollutionRate: number;
 };
 
+type CalculationResult = {
+  excluded?: boolean;
+  growthSource: string;
+};
+
+type CalculationTotals = {
+  totalTrees: number;
+  stored: number;
+  future: number;
+  impact: number;
+  value: number;
+  rainfall: number;
+  runoff: number;
+};
+
+type CalculationAssessment = {
+  results: CalculationResult[];
+  totals: CalculationTotals;
+  schedule: unknown[];
+};
+
 declare global {
   interface Window {
     CarbonCalculations: {
       girthToDbhCm: (girthM: number) => number;
-      calculateAssessment: (rows: AssessmentRow[], assumptions: Assumptions) => any;
+      calculateAssessment: (
+        rows: AssessmentRow[],
+        assumptions: Assumptions
+      ) => CalculationAssessment;
     };
     CarbonExporter: {
-      buildCsv: (state: any) => string;
+      buildCsv: (state: CalculationAssessment) => string;
     };
     CarbonData?: unknown;
   }
@@ -66,15 +90,15 @@ const assumptions: Assumptions = {
   annualHeightGrowthM: 0.12,
   yieldClass: 12,
   broadleafFormFactor: 0.45,
-  coniferFormFactor: 0.50,
+  coniferFormFactor: 0.5,
   annualRainfallMm: 800,
   broadleafRainfallInterceptionFactor: 0.22,
   coniferRainfallInterceptionFactor: 0.32,
-  unknownRainfallInterceptionFactor: 0.20,
+  unknownRainfallInterceptionFactor: 0.2,
   runoffModel: "expanded",
   imperviousCoverFraction: 0.255,
   runoffRate: 1.37,
-  pollutionRate: 0.10
+  pollutionRate: 0.1
 };
 
 function tree(overrides: Partial<AssessmentRow> = {}): AssessmentRow {
@@ -93,11 +117,11 @@ function tree(overrides: Partial<AssessmentRow> = {}): AssessmentRow {
   };
 }
 
-function calculate(rows: AssessmentRow[], overrides: Partial<Assumptions> = {}) {
-  return window.CarbonCalculations.calculateAssessment(
-    rows,
-    { ...assumptions, ...overrides }
-  );
+function calculate(
+  rows: AssessmentRow[],
+  overrides: Partial<Assumptions> = {}
+): CalculationAssessment {
+  return window.CarbonCalculations.calculateAssessment(rows, { ...assumptions, ...overrides });
 }
 
 beforeEach(() => {
@@ -157,16 +181,13 @@ describe("tree carbon calculations", () => {
   });
 
   it("keeps stump and deceased tree rows out of living biomass totals", () => {
-    const assessment = calculate([
-      tree({ species: "Stump" }),
-      tree({ species: "Deceased Tree" })
-    ]);
+    const assessment = calculate([tree({ species: "Stump" }), tree({ species: "Deceased Tree" })]);
 
     expect(assessment.totals.totalTrees).toBe(0);
     expect(assessment.totals.stored).toBe(0);
     expect(assessment.totals.future).toBe(0);
     expect(assessment.schedule).toHaveLength(0);
-    expect(assessment.results.every((row: any) => row.excluded)).toBe(true);
+    expect(assessment.results.every((result) => result.excluded)).toBe(true);
   });
 });
 

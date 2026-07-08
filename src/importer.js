@@ -22,7 +22,11 @@
           i += 1;
         }
         current.push(value);
-        if (current.some(function (cell) { return cell.trim() !== ""; })) {
+        if (
+          current.some(function (cell) {
+            return cell.trim() !== "";
+          })
+        ) {
           rows.push(current);
         }
         current = [];
@@ -32,7 +36,11 @@
       }
     }
     current.push(value);
-    if (current.some(function (cell) { return cell.trim() !== ""; })) {
+    if (
+      current.some(function (cell) {
+        return cell.trim() !== "";
+      })
+    ) {
       rows.push(current);
     }
     return rows;
@@ -43,7 +51,9 @@
       return [];
     }
     var headers = rows[0].map(function (header) {
-      return String(header || "").trim().toLowerCase();
+      return String(header || "")
+        .trim()
+        .toLowerCase();
     });
     function indexOfHeader(candidates) {
       for (var i = 0; i < headers.length; i += 1) {
@@ -54,7 +64,12 @@
       return -1;
     }
     var idx = {
-      observation: indexOfHeader(["survey observation no.", "survey observation no", "observation", "obs."]),
+      observation: indexOfHeader([
+        "survey observation no.",
+        "survey observation no",
+        "observation",
+        "obs."
+      ]),
       girth: indexOfHeader(["girth (m)", "girth m", "girth"]),
       spread: indexOfHeader(["spread (m)", "spread m", "spread"]),
       height: indexOfHeader(["height (m)", "height m", "height"]),
@@ -75,9 +90,11 @@
   }
 
   function textFromXmlNode(node) {
-    return Array.from(node.getElementsByTagName("t")).map(function (item) {
-      return item.textContent || "";
-    }).join("");
+    return Array.from(node.getElementsByTagName("t"))
+      .map(function (item) {
+        return item.textContent || "";
+      })
+      .join("");
   }
 
   function parseSharedStrings(xmlText) {
@@ -113,7 +130,9 @@
 
   async function inflateRaw(bytes) {
     if (!("DecompressionStream" in window)) {
-      throw new Error("This browser cannot read compressed .xlsx files directly. Save the workbook as CSV and import that file.");
+      throw new Error(
+        "This browser cannot read compressed .xlsx files directly. Save the workbook as CSV and import that file."
+      );
     }
     var stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
     return new Uint8Array(await new Response(stream).arrayBuffer());
@@ -169,9 +188,9 @@
     if (!entries["xl/worksheets/sheet1.xml"]) {
       throw new Error("Could not find xl/worksheets/sheet1.xml in the workbook.");
     }
-    var shared = entries["xl/sharedStrings.xml"] ?
-      parseSharedStrings(decoder.decode(entries["xl/sharedStrings.xml"])) :
-      [];
+    var shared = entries["xl/sharedStrings.xml"]
+      ? parseSharedStrings(decoder.decode(entries["xl/sharedStrings.xml"]))
+      : [];
     return parseSheetRows(decoder.decode(entries["xl/worksheets/sheet1.xml"]), shared)
       .slice(1)
       .map(function (row) {

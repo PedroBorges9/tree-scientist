@@ -2,48 +2,174 @@
   "use strict";
 
   var SPECIES = {
-    "Alder": { kind: "broadleaf", growthGroup: "mediumBroadleaf", broadleafYieldTable: "sab", nsg: 0.42, crownGroup: "Oak", rootGroup: "red alder" },
-    "Ash": { kind: "broadleaf", growthGroup: "mediumBroadleaf", broadleafYieldTable: "sab", nsg: 0.53, crownGroup: "Oak", rootGroup: "red alder" },
-    "Beech": { kind: "broadleaf", growthGroup: "slowBroadleaf", broadleafYieldTable: "beech", nsg: 0.55, crownGroup: "Beech", rootGroup: "red alder" },
-    "Birch": { kind: "broadleaf", growthGroup: "fastBroadleaf", broadleafYieldTable: "sab", nsg: 0.53, crownGroup: "Oak", rootGroup: "red alder" },
-    "Cherry": { kind: "broadleaf", growthGroup: "mediumBroadleaf", nsg: 0.50, crownGroup: "Oak", rootGroup: "red alder" },
-    "Elm": { kind: "broadleaf", growthGroup: "mediumBroadleaf", broadleafYieldTable: "sab", nsg: 0.43, crownGroup: "Oak", rootGroup: "red alder" },
-    "Willow": { kind: "broadleaf", growthGroup: "fastBroadleaf", broadleafYieldTable: "poplar", nsg: 0.35, crownGroup: "Oak", rootGroup: "red alder" },
-    "Unknown": { kind: "broadleaf", growthGroup: "unknown", nsg: 0.56, crownGroup: "Oak", rootGroup: "red alder" },
-    "Stump": { kind: "excluded", excluded: true, nsg: 0, crownGroup: "Oak", rootGroup: "red alder" },
-    "Deceased Tree": { kind: "excluded", excluded: true, nsg: 0, crownGroup: "Oak", rootGroup: "red alder" },
-    "Fir": { kind: "conifer", growthGroup: "douglasFir", yieldTable: "douglasFir", nsg: 0.30, crownGroup: "firs, spruces, cedars and hemlocks", rootGroup: "grand fir, Scots pine, western hemlock" },
-    "Hawthorn": { kind: "broadleaf", growthGroup: "slowBroadleaf", nsg: 0.56, crownGroup: "Oak", rootGroup: "red alder" },
-    "Laurel": { kind: "broadleaf", growthGroup: "slowBroadleaf", nsg: 0.56, crownGroup: "Oak", rootGroup: "red alder" },
-    "Maple": { kind: "broadleaf", growthGroup: "mediumBroadleaf", broadleafYieldTable: "sab", nsg: 0.49, crownGroup: "Beech", rootGroup: "red alder" },
-    "Oak": { kind: "broadleaf", growthGroup: "slowBroadleaf", broadleafYieldTable: "oak", nsg: 0.56, crownGroup: "Oak", rootGroup: "red alder" },
-    "Pine": { kind: "conifer", growthGroup: "scotsPine", yieldTable: "scotsPine", nsg: 0.42, crownGroup: "Scots pine", rootGroup: "grand fir, Scots pine, western hemlock" },
-    "Poplar": { kind: "broadleaf", growthGroup: "fastBroadleaf", broadleafYieldTable: "poplar", nsg: 0.35, crownGroup: "Oak", rootGroup: "red alder" },
-    "Privet": { kind: "broadleaf", growthGroup: "slowBroadleaf", nsg: 0.56, crownGroup: "Oak", rootGroup: "red alder" },
-    "Rowan": { kind: "broadleaf", growthGroup: "mediumBroadleaf", nsg: 0.56, crownGroup: "Oak", rootGroup: "red alder" },
-    "Sycamore": { kind: "broadleaf", growthGroup: "mediumBroadleaf", broadleafYieldTable: "sab", nsg: 0.49, crownGroup: "Beech", rootGroup: "red alder" }
+    Alder: {
+      kind: "broadleaf",
+      growthGroup: "mediumBroadleaf",
+      broadleafYieldTable: "sab",
+      nsg: 0.42,
+      crownGroup: "Oak",
+      rootGroup: "red alder"
+    },
+    Ash: {
+      kind: "broadleaf",
+      growthGroup: "mediumBroadleaf",
+      broadleafYieldTable: "sab",
+      nsg: 0.53,
+      crownGroup: "Oak",
+      rootGroup: "red alder"
+    },
+    Beech: {
+      kind: "broadleaf",
+      growthGroup: "slowBroadleaf",
+      broadleafYieldTable: "beech",
+      nsg: 0.55,
+      crownGroup: "Beech",
+      rootGroup: "red alder"
+    },
+    Birch: {
+      kind: "broadleaf",
+      growthGroup: "fastBroadleaf",
+      broadleafYieldTable: "sab",
+      nsg: 0.53,
+      crownGroup: "Oak",
+      rootGroup: "red alder"
+    },
+    Cherry: {
+      kind: "broadleaf",
+      growthGroup: "mediumBroadleaf",
+      nsg: 0.5,
+      crownGroup: "Oak",
+      rootGroup: "red alder"
+    },
+    Elm: {
+      kind: "broadleaf",
+      growthGroup: "mediumBroadleaf",
+      broadleafYieldTable: "sab",
+      nsg: 0.43,
+      crownGroup: "Oak",
+      rootGroup: "red alder"
+    },
+    Willow: {
+      kind: "broadleaf",
+      growthGroup: "fastBroadleaf",
+      broadleafYieldTable: "poplar",
+      nsg: 0.35,
+      crownGroup: "Oak",
+      rootGroup: "red alder"
+    },
+    Unknown: {
+      kind: "broadleaf",
+      growthGroup: "unknown",
+      nsg: 0.56,
+      crownGroup: "Oak",
+      rootGroup: "red alder"
+    },
+    Stump: { kind: "excluded", excluded: true, nsg: 0, crownGroup: "Oak", rootGroup: "red alder" },
+    "Deceased Tree": {
+      kind: "excluded",
+      excluded: true,
+      nsg: 0,
+      crownGroup: "Oak",
+      rootGroup: "red alder"
+    },
+    Fir: {
+      kind: "conifer",
+      growthGroup: "douglasFir",
+      yieldTable: "douglasFir",
+      nsg: 0.3,
+      crownGroup: "firs, spruces, cedars and hemlocks",
+      rootGroup: "grand fir, Scots pine, western hemlock"
+    },
+    Hawthorn: {
+      kind: "broadleaf",
+      growthGroup: "slowBroadleaf",
+      nsg: 0.56,
+      crownGroup: "Oak",
+      rootGroup: "red alder"
+    },
+    Laurel: {
+      kind: "broadleaf",
+      growthGroup: "slowBroadleaf",
+      nsg: 0.56,
+      crownGroup: "Oak",
+      rootGroup: "red alder"
+    },
+    Maple: {
+      kind: "broadleaf",
+      growthGroup: "mediumBroadleaf",
+      broadleafYieldTable: "sab",
+      nsg: 0.49,
+      crownGroup: "Beech",
+      rootGroup: "red alder"
+    },
+    Oak: {
+      kind: "broadleaf",
+      growthGroup: "slowBroadleaf",
+      broadleafYieldTable: "oak",
+      nsg: 0.56,
+      crownGroup: "Oak",
+      rootGroup: "red alder"
+    },
+    Pine: {
+      kind: "conifer",
+      growthGroup: "scotsPine",
+      yieldTable: "scotsPine",
+      nsg: 0.42,
+      crownGroup: "Scots pine",
+      rootGroup: "grand fir, Scots pine, western hemlock"
+    },
+    Poplar: {
+      kind: "broadleaf",
+      growthGroup: "fastBroadleaf",
+      broadleafYieldTable: "poplar",
+      nsg: 0.35,
+      crownGroup: "Oak",
+      rootGroup: "red alder"
+    },
+    Privet: {
+      kind: "broadleaf",
+      growthGroup: "slowBroadleaf",
+      nsg: 0.56,
+      crownGroup: "Oak",
+      rootGroup: "red alder"
+    },
+    Rowan: {
+      kind: "broadleaf",
+      growthGroup: "mediumBroadleaf",
+      nsg: 0.56,
+      crownGroup: "Oak",
+      rootGroup: "red alder"
+    },
+    Sycamore: {
+      kind: "broadleaf",
+      growthGroup: "mediumBroadleaf",
+      broadleafYieldTable: "sab",
+      nsg: 0.49,
+      crownGroup: "Beech",
+      rootGroup: "red alder"
+    }
   };
 
   var CROWN_7_TO_50 = {
-    "Larches": { b: 0.0000438717, p: 2.0291 },
+    Larches: { b: 0.0000438717, p: 2.0291 },
     "Corsican pine": { b: 0.0000122645, p: 2.4767 },
     "lodgepole pine": { b: 0.0000176287, p: 2.4767 },
     "Scots pine": { b: 0.0000161411, p: 2.4767 },
-    "firs, spruces, cedars and hemlocks": { b: 0.0000144620, p: 2.4767 },
+    "firs, spruces, cedars and hemlocks": { b: 0.000014462, p: 2.4767 },
     "Douglas fir": { b: 0.0000168602, p: 2.4767 },
-    "Beech": { b: 0.0000188154, p: 2.4767 },
-    "Oak": { b: 0.0000168513, p: 2.4767 }
+    Beech: { b: 0.0000188154, p: 2.4767 },
+    Oak: { b: 0.0000168513, p: 2.4767 }
   };
 
   var CROWN_OVER_50 = {
-    "Larches": { a: -0.129046967, b: 0.005039011 },
+    Larches: { a: -0.129046967, b: 0.005039011 },
     "Corsican pine": { a: -0.299529453, b: 0.009948982 },
     "lodgepole pine": { a: -0.430536496, b: 0.014300429 },
     "Scots pine": { a: -0.394205622, b: 0.013093685 },
     "firs, spruces, cedars and hemlocks": { a: -0.353197843, b: 0.011731597 },
     "Douglas fir": { a: -0.411767824, b: 0.013677021 },
-    "Beech": { a: -0.459518648, b: 0.015263082 },
-    "Oak": { a: -0.411550464, b: 0.013669801 }
+    Beech: { a: -0.459518648, b: 0.015263082 },
+    Oak: { a: -0.411550464, b: 0.013669801 }
   };
 
   var ROOT_TO_30 = {
@@ -52,46 +178,46 @@
     "grand fir, Scots pine, western hemlock": 0.000015404,
     "Douglas fir, Japanese larch, lodgepole pine": 0.000017326,
     "Sitka spruce": 0.000020454,
-    "red alder": 0.000022700
+    "red alder": 0.0000227
   };
 
   var ROOT_OVER_30 = {
     "western red cedar, noble fir, Corsican pine": { a: -0.082602857, b: 0.004515233 },
     "Norway spruce": { a: -0.091547262, b: 0.005004152 },
-    "grand fir, Scots pine, western hemlock": { a: -0.118673233, b: 0.006486910 },
-    "Douglas fir, Japanese larch, lodgepole pine": { a: -0.133480423, b: 0.007296300 },
+    "grand fir, Scots pine, western hemlock": { a: -0.118673233, b: 0.00648691 },
+    "Douglas fir, Japanese larch, lodgepole pine": { a: -0.133480423, b: 0.0072963 },
     "Sitka spruce": { a: -0.157578701, b: 0.008613559 },
     "red alder": { a: -0.174882004, b: 0.009559391 }
   };
 
   var AGE_FACTORS = {
-    "young": 1.4,
+    young: 1.4,
     "semi-mature": 1.15,
     "early-mature": 1,
-    "mature": 0.75,
-    "overmature": 0.45
+    mature: 0.75,
+    overmature: 0.45
   };
 
   var CONDITION_FACTORS = {
-    "good": 1,
-    "fair": 0.75,
-    "poor": 0.4,
-    "dead": 0
+    good: 1,
+    fair: 0.75,
+    poor: 0.4,
+    dead: 0
   };
 
   var DEFAULT_RAINFALL_INTERCEPTION_FACTORS = {
     broadleaf: 0.22,
     conifer: 0.32,
-    unknown: 0.20
+    unknown: 0.2
   };
 
   var GROWTH_GROUPS = {
-    fastBroadleaf: { dbhCm: 0.50, heightM: 0.25 },
+    fastBroadleaf: { dbhCm: 0.5, heightM: 0.25 },
     mediumBroadleaf: { dbhCm: 0.35, heightM: 0.18 },
     slowBroadleaf: { dbhCm: 0.25, heightM: 0.12 },
-    unknown: { dbhCm: 0.30, heightM: 0.15 },
-    scotsPine: { dbhCm: 0.30, heightM: 0.20 },
-    douglasFir: { dbhCm: 0.45, heightM: 0.40 }
+    unknown: { dbhCm: 0.3, heightM: 0.15 },
+    scotsPine: { dbhCm: 0.3, heightM: 0.2 },
+    douglasFir: { dbhCm: 0.45, heightM: 0.4 }
   };
 
   var YIELD_TOP_HEIGHT_INCREMENT_CM = {
@@ -235,9 +361,11 @@
     var cleaned = String(value || "").trim();
     var speciesNames = Object.keys(SPECIES);
     var lower = cleaned.toLowerCase();
-    return speciesNames.find(function (name) {
-      return name.toLowerCase() === lower;
-    }) || "Unknown";
+    return (
+      speciesNames.find(function (name) {
+        return name.toLowerCase() === lower;
+      }) || "Unknown"
+    );
   }
 
   window.CarbonData = {

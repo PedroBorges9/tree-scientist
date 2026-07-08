@@ -9,7 +9,7 @@
 
   function basalArea(dbhCm) {
     var dbhM = dbhCm / 100;
-    return Math.PI * Math.pow(dbhM, 2) / 4;
+    return (Math.PI * Math.pow(dbhM, 2)) / 4;
   }
 
   function canopyArea(spreadM) {
@@ -27,7 +27,7 @@
       factor = assumptions.unknownRainfallInterceptionFactor;
     }
 
-    return canopyArea(row.spread) * assumptions.annualRainfallMm * factor / 1000 * row.count;
+    return ((canopyArea(row.spread) * assumptions.annualRainfallMm * factor) / 1000) * row.count;
   }
 
   function avoidedRunoff(row, rainfallVolume, assumptions) {
@@ -38,9 +38,10 @@
   }
 
   function biomassComponents(dbhCm, heightM, speciesData, assumptions) {
-    var formFactor = speciesData.kind === "conifer" ?
-      assumptions.coniferFormFactor :
-      assumptions.broadleafFormFactor;
+    var formFactor =
+      speciesData.kind === "conifer"
+        ? assumptions.coniferFormFactor
+        : assumptions.broadleafFormFactor;
     var volume = basalArea(dbhCm) * heightM * formFactor;
     var stem = volume * speciesData.nsg;
     var crown = crownBiomass(dbhCm, speciesData.crownGroup);
@@ -67,7 +68,7 @@
     return {
       age: tableRow.age,
       heightM: tableRow.topHeightFt * 0.3048,
-      dbhCm: tableRow.meanBhqgIn * 2.54 * 4 / Math.PI
+      dbhCm: (tableRow.meanBhqgIn * 2.54 * 4) / Math.PI
     };
   }
 
@@ -107,11 +108,15 @@
     var table = data.YIELD_TOP_HEIGHT_INCREMENT_CM[speciesData.yieldTable];
     if (!table) {
       var group = data.GROWTH_GROUPS[speciesData.growthGroup] || data.GROWTH_GROUPS.unknown;
-      var base = assumptions.annualHeightGrowthM > 0 ? assumptions.annualHeightGrowthM : group.heightM;
+      var base =
+        assumptions.annualHeightGrowthM > 0 ? assumptions.annualHeightGrowthM : group.heightM;
       return base * (group.heightM / 0.18);
     }
 
-    var heightKey = nearestValue(Object.keys(table.rows).map(Number), Math.max(8, Math.min(20, row.height)));
+    var heightKey = nearestValue(
+      Object.keys(table.rows).map(Number),
+      Math.max(8, Math.min(20, row.height))
+    );
     var yieldClass = nearestValue(table.yieldClasses, assumptions.yieldClass);
     var ycIndex = table.yieldClasses.indexOf(yieldClass);
     return table.rows[heightKey][ycIndex] / 100;
@@ -132,9 +137,9 @@
     return {
       dbhCm: annualDbhGrowthCm(speciesData, assumptions),
       heightM: annualHeightGrowthM(row, speciesData, assumptions),
-      source: speciesData.yieldTable ?
-        "Forest Yield top-height table plus species-group DBH fallback" :
-        "species-group fallback"
+      source: speciesData.yieldTable
+        ? "Forest Yield top-height table plus species-group DBH fallback"
+        : "species-group fallback"
     };
   }
 
@@ -155,8 +160,8 @@
 
   function futureSequestrationForegone(row, currentCo2e, speciesData, assumptions) {
     if (assumptions.futureSequestrationModel === "simple-rate") {
-      var futureFactor = (data.AGE_FACTORS[row.ageClass] || 1) *
-        (data.CONDITION_FACTORS[row.condition] || 0);
+      var futureFactor =
+        (data.AGE_FACTORS[row.ageClass] || 1) * (data.CONDITION_FACTORS[row.condition] || 0);
       return {
         future: currentCo2e * assumptions.annualRate * assumptions.assessmentYears * futureFactor,
         growthSource: "simple annual percentage fallback"
@@ -164,7 +169,12 @@
     }
 
     var projected = projectedDimensions(row, speciesData, assumptions);
-    var projectedCarbon = biomassComponents(projected.dbh, projected.height, speciesData, assumptions).co2e;
+    var projectedCarbon = biomassComponents(
+      projected.dbh,
+      projected.height,
+      speciesData,
+      assumptions
+    ).co2e;
     return {
       future: Math.max(0, projectedCarbon - currentCo2e),
       growthSource: projected.growthSource,
@@ -277,12 +287,20 @@
     var totalTrees = results.reduce(function (sum, row) {
       return sum + (row.excluded ? 0 : row.count);
     }, 0);
-    var stored = results.reduce(function (sum, row) { return sum + row.co2e; }, 0);
-    var future = results.reduce(function (sum, row) { return sum + row.future; }, 0);
+    var stored = results.reduce(function (sum, row) {
+      return sum + row.co2e;
+    }, 0);
+    var future = results.reduce(function (sum, row) {
+      return sum + row.future;
+    }, 0);
     var impact = stored + future;
 
-    var rainfall = results.reduce(function (sum, row) { return sum + row.rainfall; }, 0);
-    var runoff = results.reduce(function (sum, row) { return sum + row.runoff; }, 0);
+    var rainfall = results.reduce(function (sum, row) {
+      return sum + row.rainfall;
+    }, 0);
+    var runoff = results.reduce(function (sum, row) {
+      return sum + row.runoff;
+    }, 0);
 
     return {
       totalTrees: totalTrees,
