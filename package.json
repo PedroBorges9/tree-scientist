@@ -1,0 +1,16 @@
+{
+  "name": "tree-scientist",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "typescript": "latest",
+    "vitest": "latest"
+  }
+}
