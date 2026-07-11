@@ -408,31 +408,6 @@ dd {
   text-align: right;
 }
 
-.method-footer {
-  padding: 0 clamp(18px, 4vw, 48px) 32px;
-  color: var(--muted);
-  font-size: 0.78rem;
-}
-
-.method-footer details {
-  max-width: 1120px;
-  border-top: 1px solid var(--line);
-  padding-top: 14px;
-}
-
-.method-footer summary {
-  cursor: pointer;
-  color: var(--ink);
-  font-weight: 800;
-}
-
-.method-footer ul {
-  display: grid;
-  gap: 6px;
-  margin: 10px 0 0;
-  padding-left: 18px;
-}
-
 @media (max-width: 980px) {
   .layout {
     grid-template-columns: 1fr;

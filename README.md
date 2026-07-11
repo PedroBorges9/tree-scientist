@@ -93,6 +93,19 @@ The CSV export includes the main input values, calculated biomass components, st
 - `Fallback` means the row uses the generic species-group/simple-rate fallback.
 - `Mixed` can appear if rows for the same species are calculated with more than one model type.
 
+### Method Basis
+
+- WCC Carbon Assessment Protocol v2.0 section 5 is used for biomass allocation.
+- Stem biomass is estimated stem volume times nominal specific gravity; crown and root biomass use WCC DBH equations.
+- Tree carbon is biomass times `0.5`; CO2e is carbon times `44 / 12`.
+- Stem volume is estimated from DBH, height, and editable form factor because WCC section 5 requires total stem volume as an input.
+- Future sequestration foregone projects DBH and height, recalculates WCC biomass/carbon, and takes the difference from current stored carbon.
+- Forest Yield or extracted broadleaf growth tables are used where mapped; otherwise species-group fallback growth is used.
+- Tree Survey Summary workbooks are imported from columns B-F; girth is converted to DBH using `DBH = girth / pi`.
+- Stumps and deceased trees are excluded from living-tree biomass totals.
+- Rainfall interception is canopy area x annual rainfall x species-group interception factor.
+- Avoided runoff defaults to rainfall interception x impervious cover fraction, with a simple per-tree fallback available in Config.
+
 ### Input Normalisation
 
 Survey girth is converted to DBH:
