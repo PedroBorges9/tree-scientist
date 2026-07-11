@@ -118,7 +118,8 @@
         "<td>" + group.count.toLocaleString("en-GB") + "</td>",
         "<td>" + group.meanDbh.toFixed(1) + " cm</td>",
         "<td>" + group.meanHeight.toFixed(1) + " m</td>",
-        "<td>" + biomassTonnes(group.biomass) + "</td>"
+        "<td>" + biomassTonnes(group.biomass) + "</td>",
+        "<td>" + group.growthModel + "</td>"
       ].join("");
       output.appendChild(row);
     });

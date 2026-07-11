@@ -39,6 +39,12 @@ type Assumptions = {
 type CalculationResult = {
   excluded?: boolean;
   growthSource: string;
+  growthModelType: string;
+};
+
+type ScheduleGroup = {
+  species: string;
+  growthModel: string;
 };
 
 type CalculationTotals = {
@@ -54,7 +60,7 @@ type CalculationTotals = {
 type CalculationAssessment = {
   results: CalculationResult[];
   totals: CalculationTotals;
-  schedule: unknown[];
+  schedule: ScheduleGroup[];
 };
 
 declare global {
@@ -178,6 +184,21 @@ describe("tree carbon calculations", () => {
     const assessment = calculate([tree({ species: "Cherry", dbh: 25, height: 12, spread: 6 })]);
 
     expect(assessment.results[0].growthSource).toBe("species-group fallback");
+    expect(assessment.results[0].growthModelType).toBe("Fallback");
+  });
+
+  it("marks table-backed and fallback growth models in the schedule", () => {
+    const assessment = calculate([
+      tree({ species: "Oak" }),
+      tree({ species: "Cherry", dbh: 25, height: 12, spread: 6 })
+    ]);
+
+    expect(assessment.schedule.find((group) => group.species === "Oak")?.growthModel).toBe(
+      "Table/yield model"
+    );
+    expect(assessment.schedule.find((group) => group.species === "Cherry")?.growthModel).toBe(
+      "Fallback"
+    );
   });
 
   it("keeps stump and deceased tree rows out of living biomass totals", () => {
@@ -218,6 +239,8 @@ describe("CSV export", () => {
 
     expect(csv).toContain('"Tree Loss Schedule"');
     expect(csv).toContain('"Carbon Assessment"');
+    expect(csv).toContain('"Growth model"');
+    expect(csv).toContain('"Table/yield model"');
     expect(csv).toContain('"growth_source"');
     expect(csv).toContain("Forestry Commission Booklet 16");
     expect(csv).not.toContain("5.A");

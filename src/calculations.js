@@ -245,6 +245,11 @@
       co2e: current.co2e * row.count,
       future: future.future * row.count,
       growthSource: future.growthSource,
+      growthModelType:
+        future.growthSource === "species-group fallback" ||
+        future.growthSource === "simple annual percentage fallback"
+          ? "Fallback"
+          : "Table/yield model",
       projectedDbh: future.projectedDbh || row.dbh,
       projectedHeight: future.projectedHeight || row.height,
       annualDbhGrowthCm: future.annualDbhGrowthCm || 0,
@@ -267,18 +272,25 @@
           count: 0,
           dbhTotal: 0,
           heightTotal: 0,
-          biomass: 0
+          biomass: 0,
+          growthModelTypes: {}
         };
       }
       groups[result.species].count += result.count;
       groups[result.species].dbhTotal += result.dbh * result.count;
       groups[result.species].heightTotal += result.height * result.count;
       groups[result.species].biomass += result.biomass;
+      groups[result.species].growthModelTypes[result.growthModelType] = true;
     });
     return Object.keys(groups).map(function (key) {
       var group = groups[key];
       group.meanDbh = group.dbhTotal / group.count;
       group.meanHeight = group.heightTotal / group.count;
+      group.growthModel =
+        Object.keys(group.growthModelTypes).length > 1
+          ? "Mixed"
+          : Object.keys(group.growthModelTypes)[0] || "Fallback";
+      delete group.growthModelTypes;
       return group;
     });
   }

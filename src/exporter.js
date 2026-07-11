@@ -18,14 +18,22 @@
     addBlank();
 
     addRow(["Tree Loss Schedule"]);
-    addRow(["Species", "Number", "Mean DBH cm", "Mean height m", "Estimated biomass t"]);
+    addRow([
+      "Species",
+      "Number",
+      "Mean DBH cm",
+      "Mean height m",
+      "Estimated biomass t",
+      "Growth model"
+    ]);
     state.schedule.forEach(function (group) {
       addRow([
         group.species,
         group.count,
         group.meanDbh.toFixed(1),
         group.meanHeight.toFixed(1),
-        group.biomass.toFixed(4)
+        group.biomass.toFixed(4),
+        group.growthModel
       ]);
     });
     addBlank();

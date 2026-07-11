@@ -71,6 +71,7 @@ The CSV export includes:
 
 - Results summary
 - Tree Loss Schedule by species
+- Growth model indicator for each Tree Loss Schedule species group
 - Carbon stored lost
 - Future sequestration foregone
 - Total carbon impact
@@ -86,7 +87,11 @@ The CSV export includes:
 
 The calculation code is in `src/calculations.js`. Species coefficients, WCC biomass equation coefficients, growth groups, and extracted yield tables are in `src/data.js`.
 
-The CSV export includes the main input values, calculated biomass components, stored carbon, future carbon, projected dimensions, and the growth source used for each tree row. Use this export for row-level auditing.
+The CSV export includes the main input values, calculated biomass components, stored carbon, future carbon, projected dimensions, and the growth source used for each tree row. Use this export for row-level auditing. The Tree Loss Schedule also includes a high-level growth model indicator:
+
+- `Table/yield model` means the row uses an extracted broadleaf table or Forest Yield table path.
+- `Fallback` means the row uses the generic species-group/simple-rate fallback.
+- `Mixed` can appear if rows for the same species are calculated with more than one model type.
 
 ### Input Normalisation
 
