@@ -325,19 +325,6 @@ Current mapped groups:
 
 Species without validated table mappings use generic fallback rates.
 
-## Reference Material
-
-The `reference/` folder is ignored by Git and is intended for local source documents. Current local references are:
-
-- `reference/WCC_CarbonAssessmentProtocol_V2.0_March2018.pdf`
-- `reference/Technical Note Quantifying Tree Loss and Associated Carbon and Financial Impacts.docx`
-- `reference/Tree Survey Summary Amended v1.0.xlsx`
-- `reference/yield.pdf`
-- `reference/fcbk016.pdf` - Forestry Commission Booklet 16
-- `reference/fcbk048_1981.pdf` - Forestry Commission Booklet 48
-
-Because `reference/` is ignored, these documents are not pushed to GitHub. A fresh clone may not include them.
-
 ## Project Layout
 
 - `index.html` - app entry point.

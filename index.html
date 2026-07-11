@@ -113,44 +113,6 @@
             </div>
           </dl>
         </article>
-
-        <article class="method-note">
-          <h3>Method basis</h3>
-          <p>
-            WCC Carbon Assessment Protocol v2.0 section 5 is used for biomass allocation: stem
-            biomass equals estimated total stem volume times nominal specific gravity; crown and
-            root biomass use the protocol DBH equations; tree carbon is biomass times 0.5; CO2e is
-            carbon times 44/12.
-          </p>
-          <p>
-            Stem volume is estimated here from DBH, height, and an editable form factor because the
-            section 5 equations require total stem volume as an input. Future sequestration foregone
-            is estimated by projecting DBH and height over the assessment period, recalculating WCC
-            biomass/carbon at the projected size, and taking the difference from current stored
-            carbon. Where the Forest Yield handbook provides a matching Appendix 2 top-height
-            increment table, that species table is used for height growth; otherwise species-group
-            fallback growth is used.
-          </p>
-          <p>
-            Species not explicitly listed in the WCC nominal specific gravity table are mapped to
-            the nearest broadleaf or conifer calculation group and should be reviewed before formal
-            reporting.
-          </p>
-          <p>
-            Tree Survey Summary workbooks are imported from columns B-F. Girth is converted to DBH
-            using DBH = girth / pi. Stumps and deceased trees are excluded from living-tree WCC
-            biomass totals.
-          </p>
-          <p>
-            Rainfall interception is estimated as canopy area x annual rainfall x species-group
-            interception factor. Canopy area is calculated from spread as pi x (spread / 2)^2.
-          </p>
-          <p>
-            Avoided runoff uses the expanded i-Tree-style screening formula by default: rainfall
-            interception x impervious cover fraction. The simple per-tree rate is retained as a
-            fallback option.
-          </p>
-        </article>
       </section>
 
       <section class="panel input-panel" aria-labelledby="tree-input-title">
@@ -380,6 +342,45 @@
         </div>
       </aside>
     </main>
+
+    <footer class="method-footer">
+      <details>
+        <summary>Method basis</summary>
+        <ul>
+          <li>WCC Carbon Assessment Protocol v2.0 section 5 is used for biomass allocation.</li>
+          <li>
+            Stem biomass is estimated stem volume times nominal specific gravity; crown and root
+            biomass use WCC DBH equations.
+          </li>
+          <li>Tree carbon is biomass times 0.5; CO2e is carbon times 44/12.</li>
+          <li>
+            Stem volume is estimated from DBH, height, and editable form factor because WCC section
+            5 requires total stem volume as an input.
+          </li>
+          <li>
+            Future sequestration foregone projects DBH and height, recalculates WCC biomass/carbon,
+            and takes the difference from current stored carbon.
+          </li>
+          <li>
+            Forest Yield or extracted broadleaf growth tables are used where mapped; otherwise
+            species-group fallback growth is used.
+          </li>
+          <li>
+            Tree Survey Summary workbooks are imported from columns B-F; girth is converted to DBH
+            using DBH = girth / pi.
+          </li>
+          <li>Stumps and deceased trees are excluded from living-tree biomass totals.</li>
+          <li>
+            Rainfall interception is canopy area x annual rainfall x species-group interception
+            factor.
+          </li>
+          <li>
+            Avoided runoff defaults to rainfall interception x impervious cover fraction, with a
+            simple per-tree fallback available in Config.
+          </li>
+        </ul>
+      </details>
+    </footer>
 
     <template id="tree-row-template">
       <tr>
